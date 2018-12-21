@@ -50,6 +50,7 @@ $string['intelliboard:students'] = 'IntelliBoard [student]';
 $string['intelliboard:view'] = 'IntelliBoard [view]';
 $string['intelliboard:manage'] = 'IntelliBoard [manage]';
 $string['intelliboard:competency'] = 'IntelliBoard [competency]';
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['tls12'] = 'TLS v1.2';
 $string['tls12_desc'] = 'Advanced settings: TLS v1.2';
 $string['sso'] = 'SSO link';
@@ -688,3 +689,9 @@ $string['course'] = "Course";
 $string['courseaverage'] = "Course Average";
 $string['mygrade'] = "My Grade";
 $string['myprogress'] = "My grade progress";
+
+
+$string['manager_dashboard'] = "Manager Dashboard";
+$string['selectaclub'] = "Select a Club";
+$string['franchisegroup'] = "Franchise Group";
+$string['nofranchisegroup'] = "Franchise Group NOT found!";

@@ -59,6 +59,9 @@ function local_intelliboard_extends_navigation(global_navigation $nav){
 			}
 		}
 	}
+	if( has_capability('local/intelliboard:pf', $context)) {
+		$nav->add(get_string('manager_dashboard', 'local_intelliboard'), new moodle_url($CFG->wwwroot.'/local/intelliboard/pf/index.php'));
+	}
 }
 //call-back method to extend the navigation
 function local_intelliboard_extend_navigation(global_navigation $nav){
@@ -80,7 +83,13 @@ function local_intelliboard_extend_navigation(global_navigation $nav){
 			$node = $mynode->add($name, $url, 0, null, 'intelliboard_student');
 			$node->showinflatnavigation = true;
 		}
-
+		if( has_capability('local/intelliboard:pf', $context)) {
+			$name = get_string('manager_dashboard', 'local_intelliboard');
+			$url = new moodle_url($CFG->wwwroot.'/local/intelliboard/pf/index.php');
+			$nav->add($name, $url);
+			$node = $mynode->add($name, $url, 0, null, 'intelliboard_pf');
+			$node->showinflatnavigation = true;
+		}
 		if (isloggedin() and get_config('local_intelliboard', 'n10')) {
 		    //Check if user is enrolled to any courses with "instructor" role(s)
 			$instructor_roles = get_config('local_intelliboard', 'filter10');
