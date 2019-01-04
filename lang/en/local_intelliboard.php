@@ -690,8 +690,9 @@ $string['courseaverage'] = "Course Average";
 $string['mygrade'] = "My Grade";
 $string['myprogress'] = "My grade progress";
 
-
 $string['manager_dashboard'] = "Manager Dashboard";
 $string['selectaclub'] = "Select a Club";
 $string['franchisegroup'] = "Franchise Group";
 $string['nofranchisegroup'] = "Franchise Group NOT found!";
+
+$string['instructor_course_shortname'] = "Show course short name instead course full name";
