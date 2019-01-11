@@ -126,9 +126,9 @@ echo $OUTPUT->header();
 	<div class="intelliboard-pf-content pf-table">
 		<div class="intelliboard-search clearfix">
 			<form action="" method="GET" id="filterform">
-				<select name="cids" id="cids" class="pull-left cids form-control" style="margin-right:20px; width:200px;" multiple="multiple">
+				<select name="cids" id="cids" class="pull-left cids coursesdropdown form-control" style="margin-right:20px; width: 200px;" multiple="multiple">
 					<?php foreach($courses as $course): ?>
-						<option value="<?php echo $course->id; ?>" <?php echo (in_array($course->id, $cids))?'selected="selected"':''; ?>><?php echo $course->fullname; ?></option>
+						<option value="<?php echo $course->id; ?>" <?php echo (in_array($course->id, $cids))?'selected="selected"':''; ?>><?php echo format_string($course->fullname); ?></option>
 					<?php endforeach; ?>
 				</select>
 				<input type="hidden" name="sesskey" value="<?php p(sesskey()); ?>" />

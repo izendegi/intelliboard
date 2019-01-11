@@ -32,6 +32,9 @@
 </ul>
 
 <style>
+  .coursesdropdown{
+    width: 200px;
+  }
 .intelliboard-pf-header{
 	background-color: #943193;
 	padding:3px 15px;

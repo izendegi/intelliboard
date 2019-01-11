@@ -47,7 +47,7 @@ class intelliboard_pf_users_table extends table_sql {
         $headers[] =  get_string('lastname');
 
         $columns[] =  'email';
-        $headers[] =  get_string('username');
+        $headers[] =  get_string('email');
 
         $columns[] =  'data';
         $headers[] =  'Club Location';
