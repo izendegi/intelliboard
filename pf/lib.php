@@ -67,7 +67,7 @@ function intelliboard_pf_courses()
 {
   global $DB;
 
-  return $DB->get_records_sql("SELECT c.id, c.fullname FROM {course} c WHERE c.visible = 1");
+  return $DB->get_records_sql("SELECT c.id, c.fullname, c.visible, c.category, ca.visible AS category_visible, ca.name FROM {course} c, {course_categories} ca WHERE c.category = ca.id");
 }
 function intelliboard_pf_widgets($ids, $cohortid)
 {

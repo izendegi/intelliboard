@@ -72,6 +72,14 @@ $fields = intelliboard_pf_fields($cohort->id);
 $widgets = intelliboard_pf_widgets($id, $cohort->id);
 
 
+
+$categories = [];
+foreach ($courses as $course) {
+	$categories[$course->category][] = $course;
+}
+//echo "<pre>"; print_r($categories); exit;
+
+
 $fieldsMenu = [];
 foreach ($fields as $field) {
 	$fieldsMenu[$field->fieldid] = ["name" => $field->name];
@@ -127,8 +135,16 @@ echo $OUTPUT->header();
 		<div class="intelliboard-search clearfix">
 			<form action="" method="GET" id="filterform">
 				<select name="cids" id="cids" class="pull-left cids coursesdropdown form-control" style="margin-right:20px; width: 200px;" multiple="multiple">
-					<?php foreach($courses as $course): ?>
-						<option value="<?php echo $course->id; ?>" <?php echo (in_array($course->id, $cids))?'selected="selected"':''; ?>><?php echo format_string($course->fullname); ?></option>
+					<?php foreach($categories as $key=>$category): $cat = reset($category); ?>
+						<?php if ($cat->category_visible or has_capability('moodle/category:viewhiddencategories', $PAGE->context)): ?>
+						<optgroup label="<?php echo $cat->name; ?>">
+						<?php foreach($category as $course): ?>
+							<?php if ($course->visible or has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))): ?>
+								<option value="<?php echo $course->id; ?>" <?php echo (in_array($course->id, $cids))?'selected="selected"':''; ?>><?php echo format_string($course->fullname); ?></option>
+							<?php endif; ?>
+						<?php endforeach; ?>
+						</optgroup>
+					<?php endif; ?>
 					<?php endforeach; ?>
 				</select>
 				<input type="hidden" name="sesskey" value="<?php p(sesskey()); ?>" />
@@ -146,6 +162,11 @@ echo $OUTPUT->header();
 
 	<?php include("../views/footer.php"); ?>
 </div>
+<style>
+.ms-drop input[type="checkbox"] {
+    margin-top: 7px;
+}
+</style>
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 		$("#fieldid").multipleSelect({
