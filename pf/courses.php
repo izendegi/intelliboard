@@ -133,8 +133,9 @@ echo $OUTPUT->header();
 	<?php if($id): ?>
 	<div class="intelliboard-pf-content pf-table">
 		<div class="intelliboard-search clearfix">
+
 			<form action="" method="GET" id="filterform">
-				<select name="cids" id="cids" class="pull-left cids coursesdropdown form-control" style="margin-right:20px; width: 200px;" multiple="multiple">
+				<select id="cids" class="pull-left cids coursesdropdown form-control" style="margin-right:20px; width: 200px;" multiple="multiple">
 					<?php foreach($categories as $key=>$category): $cat = reset($category); ?>
 						<?php if ($cat->category_visible or has_capability('moodle/category:viewhiddencategories', $PAGE->context)): ?>
 						<optgroup label="<?php echo $cat->name; ?>">
@@ -147,10 +148,13 @@ echo $OUTPUT->header();
 					<?php endif; ?>
 					<?php endforeach; ?>
 				</select>
+
+
+				<input type="hidden" name="cids" id="cidsid" value="" />
 				<input type="hidden" name="sesskey" value="<?php p(sesskey()); ?>" />
 				<input name="id" type="hidden" value="<?php echo $id; ?>" />
 				<span class="pull-left"><input class="form-control" name="search" type="text" value="<?php echo format_string($search); ?>" placeholder="<?php echo get_string('type_here', 'local_intelliboard');?>" /></span>
-				<button class="btn btn-default"><?php echo get_string('search');?></button>
+				<button id="search" class="btn btn-default"><?php echo get_string('search');?></button>
 			</form>
 		</div>
 		<?php $table->out(10, true); ?>
@@ -185,6 +189,14 @@ echo $OUTPUT->header();
 			location = "<?php echo new moodle_url("/local/intelliboard/pf/courses.php"); ?>?id="+id;
 		});
 
+
+		$("#filterform").submit(function(e){
+			 e.preventDefault();
+
+			var cids = jQuery('#cids').val();
+			$("#cidsid").val(cids);
+			$("#filterform").submit();
+		});
 
 		$("#cids").multipleSelect({
 			minimumCountSelected:1,

@@ -216,6 +216,8 @@ class intelliboard_pf_courses_table extends table_sql {
         }
         if ($cids) {
           $sql .= " AND c.id IN ($cids)";
+        } else {
+          $sql .= " AND c.id IN (0)";
         }
 
         if ($ids) {
