@@ -34,6 +34,7 @@ $cids = optional_param('cids', 0, PARAM_SEQUENCE);
 $search = clean_raw(optional_param('search', '', PARAM_RAW));
 $download = optional_param('download', '', PARAM_ALPHA);
 $status = optional_param('status', 0, PARAM_INT);
+$redirect = optional_param('redirect', 0, PARAM_INT);
 $sitecontext = context_system::instance();
 
 require_login();
@@ -215,6 +216,18 @@ echo $OUTPUT->header();
 			var id = jQuery('#fieldid').val();
 			location = "<?php echo new moodle_url("/local/intelliboard/pf/courses.php"); ?>?id="+id + "&cids="+cids;
 		});
+
+		var cids = jQuery('#cids').val();
+		var redirect = <?php echo $redirect; ?>;
+
+		if (cids == '' && redirect == 0) {
+			$('#cids option').prop('selected', true);
+
+			var cids = jQuery('#cids').val();
+			var id = jQuery('#fieldid').val();
+			location = "<?php echo new moodle_url("/local/intelliboard/pf/courses.php"); ?>?id="+id + "&cids="+cids+"&redirect=1";
+		}
+
 	});
 </script>
 <?php endif; ?>
