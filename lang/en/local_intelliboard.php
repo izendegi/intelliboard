@@ -703,3 +703,6 @@ $string['franchisegroup'] = "Franchise Group";
 $string['nofranchisegroup'] = "Franchise Group NOT found!";
 
 $string['instructor_course_shortname'] = "Show course short name instead course full name";
+
+$string['trackmedia'] = "Track HTML5 media";
+$string['trackmedia_desc'] = "Track HTML5 video and audio";
