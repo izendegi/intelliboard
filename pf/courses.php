@@ -138,7 +138,7 @@ echo $OUTPUT->header();
 			<form action="" method="GET" id="filterform">
 				<select id="cids" class="pull-left cids coursesdropdown form-control" style="margin-right:20px; width: 200px;" multiple="multiple">
 					<?php foreach($categories as $key=>$category): $cat = reset($category); ?>
-						<?php if ($cat->category_visible or has_capability('moodle/category:viewhiddencategories', $PAGE->context)): ?>
+						<?php if ($cat->category_visible or has_capability('moodle/category:viewhiddencategories', context_coursecat::instance($key))): ?>
 						<optgroup label="<?php echo $cat->name; ?>">
 						<?php foreach($category as $course): ?>
 							<?php if ($course->visible or has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))): ?>
