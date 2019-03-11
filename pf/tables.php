@@ -233,7 +233,7 @@ class intelliboard_pf_courses_table extends table_sql {
         }
         $grade_single = intelliboard_grade_sql();
 
-        $fields = "CONCAT(ue.id, '_', u.data) AS id,  (SELECT cm.id FROM {modules} m, {course_modules} cm, {course} c WHERE c.id = cm.course AND cm.visible = 1 AND c.visible = 1 AND m.name = 'customcert' AND cm.module = m.id AND cm.course = c.id LIMIT 1) AS certificate,  u.*, ue.timecreated AS enrolled, c.fullname AS course, e.courseid, cc.timecompleted AS completed, cc.timecompleted, ul.timeaccess, $grade_single AS grade, CASE WHEN g.timemodified > 0 THEN g.timemodified ELSE g.timecreated END AS graded";
+        $fields = "CONCAT(ue.id, '_', u.data) AS id,  (SELECT cm.id FROM {modules} m, {course_modules} cm, {course} c WHERE c.id = cm.course AND cm.visible = 1 AND m.name = 'customcert' AND cm.module = m.id AND cm.course = c.id LIMIT 1) AS certificate,  u.*, ue.timecreated AS enrolled, c.fullname AS course, e.courseid, cc.timecompleted AS completed, cc.timecompleted, ul.timeaccess, $grade_single AS grade, CASE WHEN g.timemodified > 0 THEN g.timemodified ELSE g.timecreated END AS graded";
         $from = "(SELECT d.userid, u.username, u.firstname, u.lastname, u.email, u.suspended, u.timecreated, d.data,
                   (SELECT d2.data FROM {user_info_field} f2, {user_info_data} d2 WHERE f2.shortname = 'JobTitle' AND d2.fieldid = f2.id AND d2.userid = u.id) as title,
                   '' AS actions
@@ -247,7 +247,7 @@ class intelliboard_pf_courses_table extends table_sql {
             LEFT JOIN {grade_items} gi ON gi.itemtype = 'course' AND gi.courseid = c.id
             LEFT JOIN {grade_grades} g ON g.userid = u.userid AND g.itemid = gi.id AND g.finalgrade IS NOT NULL
             ";
-        $where = "ue.id > 0 $sql";
+        $where = "ue.id > 0 AND ue.status = 0 AND e.status = 0 $sql";
 
         $this->set_sql($fields, $from, $where, $params);
         $this->define_baseurl($PAGE->url);
