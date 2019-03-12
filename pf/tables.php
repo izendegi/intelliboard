@@ -238,7 +238,7 @@ class intelliboard_pf_courses_table extends table_sql {
                   (SELECT d2.data FROM {user_info_field} f2, {user_info_data} d2 WHERE f2.shortname = 'JobTitle' AND d2.fieldid = f2.id AND d2.userid = u.id) as title,
                   '' AS actions
             FROM {user} u, {user_info_field} f,{user_info_data} d
-            WHERE u.id = d.userid AND f.id = d.fieldid $sqlfilter) u
+            WHERE u.id = d.userid AND f.id = d.fieldid AND u.suspended = 0 AND u.deleted = 0 $sqlfilter) u
             JOIN {user_enrolments} ue ON ue.userid = u.userid
             JOIN {enrol} e ON e.id = ue.enrolid
             JOIN {course} c ON c.id = e.courseid
