@@ -37,6 +37,9 @@ function local_intelliboard_extends_navigation(global_navigation $nav){
 		$nav->add($name, new moodle_url($CFG->wwwroot.'/local/intelliboard/student/index.php'));
 	}
 
+	if(has_capability('local/intelliboard:view', $context) and get_config('local_intelliboard', 'ssomenu')){
+		$nav->add(get_string('ianalytics', 'local_intelliboard'), new moodle_url($CFG->wwwroot.'/local/intelliboard/index.php?action=sso'));
+	}
 	if (isloggedin() and get_config('local_intelliboard', 'n10')){
 	    //Check if user is enrolled to any courses with "instructor" role(s)
 		$instructor_roles = get_config('local_intelliboard', 'filter10');
