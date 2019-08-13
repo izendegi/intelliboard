@@ -29,6 +29,7 @@
 <ul class="nav nav-tabs">
 <li class="nav-item <?php echo ($PAGE->pagetype == 'home')?'active':''; ?>"><a href="<?php echo new moodle_url("/local/intelliboard/pf/index.php", array("id"=>$id)); ?>">Manager Dashboard</a></li>
 <li class="nav-item <?php echo ($PAGE->pagetype == 'courses')?'active':''; ?>"><a href="<?php echo new moodle_url("/local/intelliboard/pf/courses.php", array("id"=>$id)); ?>">Course Completion</a></li>
+<li class="nav-item <?php echo ($PAGE->pagetype == 'activities')?'active':''; ?>"><a href="<?php echo new moodle_url("/local/intelliboard/pf/activities.php", array("id"=>$id)); ?>">Activity Progress by Course</a></li>
 </ul>
 
 <style>

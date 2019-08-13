@@ -285,103 +285,132 @@ class intelliboard_pf_courses_table extends table_sql {
 
 
 class intelliboard_pf_activities_table extends table_sql {
-    public $scale_real;
+  public $activities = [];
 
-    function __construct($uniqueid, $userid = 0, $courseid = 0, $search = '') {
-        global $CFG, $PAGE, $DB;
+  function __construct($uniqueid, $search = '', $ids = '', $cohortid = 0, $status = 0, $cids = '') {
+      global $CFG, $PAGE, $DB, $USER;
 
-        parent::__construct($uniqueid);
+      parent::__construct($uniqueid);
 
-        $columns[] = 'activity';
-        $headers[] = get_string('activity_name','local_intelliboard');
+      $headers = array();
+      $columns = array();
 
-        $columns[] = 'module';
-        $headers[] = get_string('type','local_intelliboard');
+      //$columns[] =  'username';
+      //$headers[] =  get_string('username');
 
-        $columns[] = 'grade';
-        $headers[] = get_string('grade','local_intelliboard');
+      $columns[] =  'firstname';
+      $headers[] =  get_string('firstname');
 
-        $columns[] =  'graded';
-        $headers[] =  get_string('graded','local_intelliboard');
+      $columns[] =  'lastname';
+      $headers[] =  get_string('lastname');
 
-        $columns[] = 'timecompleted';
-        $headers[] = get_string('status','local_intelliboard');
+      $columns[] =  'email';
+      $headers[] =  get_string('email');
 
-        $columns[] =  'visits';
-        $headers[] =  get_string('visits','local_intelliboard');
+      $columns[] =  'data';
+      $headers[] =  'Club Location';
 
-        $columns[] =  'timespend';
-        $headers[] =  get_string('time_spent','local_intelliboard');
+      $columns[] =  'course';
+      $headers[] =  'Course name';
 
-        $this->define_headers($headers);
-        $this->define_columns($columns);
+      $columns[] =  'enrolled';
+      $headers[] =  'Enrolled';
 
-        $params = array(
-            'u1'=>$userid,
-            'u2'=>$userid,
-            'u3'=>$userid,
-            'c1'=>$courseid,
-            'c2'=>$courseid
-        );
-        $sql = "";
-        if ($search) {
-            $sql .= " AND " . $DB->sql_like('m.name', ":activity", false, false);
-            $params['activity'] = "%$search%";
+      $columns[] =  'title';
+      $headers[] =  'Position';
+
+      $sql_activities = "";
+      $count_activities = 0;
+      $completions = get_config('local_intelliboard', 'completions');
+      $completions = ($completions) ? $completions : 1;
+
+      if ($cids) {
+        if ($modules = $DB->get_records_sql("SELECT m.id, m.name FROM {modules} m WHERE m.visible = 1 $sql_mods", $this->params)) {
+          $sql_columns = "";
+          foreach($modules as $module){
+              $sql_columns .= " WHEN m.name='{$module->name}' THEN (SELECT name FROM {".$module->name."} WHERE id = cm.instance)";
+          }
+          if ($this->activities = $DB->get_records_sql("SELECT cm.id, CASE $sql_columns ELSE 'NONE' END AS activity  FROM {course_modules} cm, {modules} m WHERE cm.visible = 1 AND cm.module = m.id AND cm.course IN ($cids)")) {
+            foreach ($this->activities as $activity) {
+              $activity->name =  "activity" . $activity->id;
+              $columns[] =  $activity->name;
+              $headers[] =  $activity->activity;
+              $sql_activities .= ", (SELECT cmc.timemodified FROM {course_modules_completion} cmc WHERE cmc.completionstate IN($completions) AND cmc.userid = u.userid AND cmc.coursemoduleid = {$activity->id}) AS " . $activity->name;
+            }
+            $count_activities = count($this->activities);
+          }
         }
+      }
 
-        $sql_columns = "";
-        $modules = $DB->get_records_sql("SELECT m.id, m.name FROM {modules} m WHERE m.visible = 1");
-        foreach($modules as $module){
-            $sql_columns .= " WHEN m.name='{$module->name}' THEN (SELECT name FROM {".$module->name."} WHERE id = cm.instance)";
+      $columns[] =  'etc';
+      $headers[] =  'ETC';
+
+      $this->define_headers($headers);
+      $this->define_columns($columns);
+
+      $sql = "";
+      $params = [];
+      if ($status) {
+        $sql .= ($status == 2) ? " AND u.suspended = 1" : " AND u.suspended = 0";
+      }
+      if ($search) {
+          $where = [];
+          foreach (['u.firstname', 'u.lastname', 'u.email', 'course'] as $key=>$column) {
+            $where[] = $DB->sql_like($column, ":col".$key, false, false);
+            $params["col".$key] = "%". $search ."%";
+          }
+          $sql .= ' AND ('.implode(' OR ',$where).')';
+      }
+      $sqlfilter = "";
+      if ($cohortid) {
+        $sqlfilter .= ' AND u.id IN (SELECT userid FROM {cohort_members} WHERE cohortid = :cohortid)';
+        $params["cohortid"] = $cohortid;
+      }
+      if ($cids) {
+        $sql .= " AND c.id = " . intval($cids);
+      } else {
+        $sql .= " AND c.id IN (0)";
+      }
+
+      if ($ids) {
+        $data = $DB->get_records_sql("SELECT * FROM {user_info_data} WHERE id IN ($ids)");
+        $where = [];
+        foreach ($data as $item) {
+            $where[] = "(" . $DB->sql_like("d.data", ":col".$item->id, false, false) . " AND d.fieldid = $item->fieldid)";
+            $params["col".$item->id] = "%". $item->data ."%";
         }
-        $sql_columns =  ($sql_columns) ? ", CASE $sql_columns ELSE 'none' END AS activity" : "'' AS activity";
-        $grade_single = intelliboard_grade_sql();
-        $completion = intelliboard_compl_sql("cmc.");
+        $sqlfilter = ' AND ('.implode(' OR ',$where).')';
+      } else {
+        $sqlfilter = ' AND u.id = 0';
+      }
 
-        $fields = "
-            cm.id,
-            m.name as module,
-            cmc.timemodified as timecompleted,
-            $grade_single AS grade,
-            CASE WHEN g.timemodified > 0 THEN g.timemodified ELSE g.timecreated END AS graded,
-            l.visits,
-            l.timespend
-            $sql_columns";
-        $from = "{course_modules} cm
-            LEFT JOIN {modules} m ON m.id = cm.module
-            LEFT JOIN {grade_items} gi ON gi.iteminstance = cm.instance AND gi.itemmodule = m.name AND gi.itemtype = 'mod'
-            LEFT JOIN {grade_grades} g ON g.itemid = gi.id AND g.userid = :u1
-            LEFT JOIN {course_modules_completion} cmc ON cmc.coursemoduleid = cm.id $completion AND cmc.userid = :u2
-            LEFT JOIN {local_intelliboard_tracking} l ON l.param=cm.id AND l.page='module' AND l.courseid=:c1 AND l.userid= :u3";
-        $where = "cm.visible = 1 AND cm.course = :c2 $sql";
+      $fields = "CONCAT(ue.id, '_', u.data) AS id, $count_activities AS etc,  u.*, ue.timecreated AS enrolled, c.fullname AS course, e.courseid $sql_activities";
+      $from = "(SELECT d.userid, u.username, u.firstname, u.lastname, u.email, u.suspended, u.timecreated, d.data,
+                (SELECT d2.data FROM {user_info_field} f2, {user_info_data} d2 WHERE f2.shortname = 'JobTitle' AND d2.fieldid = f2.id AND d2.userid = u.id) as title,
+                '' AS actions
+          FROM {user} u, {user_info_field} f,{user_info_data} d
+          WHERE u.id = d.userid AND f.id = d.fieldid AND u.suspended = 0 AND u.deleted = 0 $sqlfilter) u
+          JOIN {user_enrolments} ue ON ue.userid = u.userid
+          JOIN {enrol} e ON e.id = ue.enrolid
+          JOIN {course} c ON c.id = e.courseid";
+      $where = "ue.id > 0 AND ue.status = 0 AND e.status = 0 $sql";
 
-        $this->set_sql($fields, $from, $where, $params);
-        $this->define_baseurl($PAGE->url);
-    }
-
-    function col_grade($values) {
-        if(optional_param('download', '', PARAM_ALPHA)){
-            return $values->grade;
-        } else {
-            $html = html_writer::start_tag("div", array("class" => "grade"));
-            $html .= html_writer::tag("div", "", array("class" => "circle-progress", "data-percent" => (int)$values->grade));
-            $html .= html_writer::end_tag("div");
-            return $html;
+      $this->set_sql($fields, $from, $where, $params);
+      $this->define_baseurl($PAGE->url);
+  }
+  function other_cols($colname, $attempt)
+  {
+    if ($this->activities) {
+      foreach ($this->activities as $activity) {
+        if ($activity->name == $colname) {
+          return ($attempt->{$colname}) ? date('m/d/Y', $attempt->{$colname}) : 'incomplete';
         }
+      }
     }
-
-    function col_visits($values) {
-        return intval($values->visits);
-    }
-    function col_timespend($values) {
-      return ($values->timespend) ? seconds_to_time($values->timespend) : '-';
-    }
-    function col_timecompleted($values) {
-      return ($values->timecompleted) ? get_string('completed_on','local_intelliboard', date('m/d/Y', $values->timecompleted)) : get_string('incomplete','local_intelliboard');
-    }
-    function col_graded($values) {
-      return ($values->graded) ? date('m/d/Y', $values->graded) : '';
-    }
+  }
+  function col_enrolled($values) {
+      return ($values->enrolled) ? date('m/d/Y', $values->enrolled) : '-';
+  }
 }
 
 
