@@ -80,6 +80,13 @@ $capabilities = array(
           'editingteacher' => CAP_ALLOW,
           'coursecreator' => CAP_ALLOW,
           'manager' => CAP_ALLOW
-        )
+        ),
+    ),
+    'local/intelliboard:attendanceadmin' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        ),
     )
 );
