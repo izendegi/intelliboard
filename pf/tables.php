@@ -330,7 +330,7 @@ class intelliboard_pf_activities_table extends table_sql {
           foreach($modules as $module){
               $sql_columns .= " WHEN m.name='{$module->name}' THEN (SELECT name FROM {".$module->name."} WHERE id = cm.instance)";
           }
-          if ($this->activities = $DB->get_records_sql("SELECT cm.id, CASE $sql_columns ELSE 'NONE' END AS activity  FROM {course_modules} cm, {modules} m WHERE cm.visible = 1 AND cm.module = m.id AND cm.course IN ($cids)")) {
+          if ($this->activities = $DB->get_records_sql("SELECT cm.id, CASE $sql_columns ELSE 'NONE' END AS activity  FROM {course_modules} cm, {modules} m WHERE cm.completion = 1 AND cm.visible = 1 AND cm.module = m.id AND cm.course IN ($cids)")) {
             foreach ($this->activities as $activity) {
               $activity->name =  "activity" . $activity->id;
               $columns[] =  $activity->name;
@@ -342,8 +342,8 @@ class intelliboard_pf_activities_table extends table_sql {
         }
       }
 
-      $columns[] =  'etc';
-      $headers[] =  'ETC';
+      //$columns[] =  'etc';
+      //$headers[] =  'ETC';
 
       $this->define_headers($headers);
       $this->define_columns($columns);
@@ -453,9 +453,9 @@ class intelliboard_pf_transcript_table extends table_sql {
         }
         $grade_single = intelliboard_grade_sql(false, null, 'g.',0, 'gi.',true);
 
-        $fields = "c.id, c.fullname as course,  (SELECT cm.id FROM {modules} m, {course_modules} cm, {course} c WHERE c.id = cm.course AND cm.visible = 1 AND c.visible = 1 AND m.name = 'customcert' AND cm.module = m.id AND cm.course = c.id LIMIT 1) AS certificate, c.timemodified, c.startdate, c.userid, c.enablecompletion, cri.gradepass, $grade_single AS grade, cc.timecompleted, '' as actions";
+        $fields = "c.id, c.fullname as course,  (SELECT cm.id FROM {modules} m, {course_modules} cm, {course} c WHERE c.id = cm.course AND cm.visible = 1 AND m.name = 'customcert' AND cm.module = m.id AND cm.course = c.id LIMIT 1) AS certificate, c.timemodified, c.startdate, c.userid, c.enablecompletion, cri.gradepass, $grade_single AS grade, cc.timecompleted, '' as actions";
 
-        $from = "(SELECT DISTINCT c.id, c.fullname, c.startdate, c.enablecompletion, MIN(ue.timemodified) AS timemodified, ue.userid FROM {user_enrolments} ue, {enrol} e, {course} c WHERE ue.userid = :userid  AND ue.status = 0 AND e.id = ue.enrolid AND e.status = 0 AND c.id = e.courseid AND c.visible = 1 GROUP BY c.id, ue.userid) c
+        $from = "(SELECT DISTINCT c.id, c.fullname, c.startdate, c.enablecompletion, MIN(ue.timemodified) AS timemodified, ue.userid FROM {user_enrolments} ue, {enrol} e, {course} c WHERE ue.userid = :userid  AND ue.status = 0 AND e.id = ue.enrolid AND e.status = 0 AND c.id = e.courseid GROUP BY c.id, ue.userid) c
 
             LEFT JOIN {course_completions} cc ON cc.course = c.id AND cc.userid = c.userid
             LEFT JOIN {course_completion_criteria} as cri ON cri.course = c.id AND cri.criteriatype = 6
