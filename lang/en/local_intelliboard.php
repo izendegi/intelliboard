@@ -25,6 +25,10 @@
  */
 
  $string['pluginname'] = 'IntelliBoard.net Plugin';
+ $string['manager_dashboard'] = "Manager Dashboard";
+ $string['selectaclub'] = "Select a Club";
+ $string['franchisegroup'] = "Franchise Group";
+ $string['nofranchisegroup'] = "Franchise Group NOT found!";
  $string['tracking_title'] = 'Time Tracking';
  $string['tracking'] = 'Session Tracking';
  $string['dashboard'] = 'Dashboard';
