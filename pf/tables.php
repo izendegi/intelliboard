@@ -330,7 +330,7 @@ class intelliboard_pf_activities_table extends table_sql {
           foreach($modules as $module){
               $sql_columns .= " WHEN m.name='{$module->name}' THEN (SELECT name FROM {".$module->name."} WHERE id = cm.instance)";
           }
-          if ($this->activities = $DB->get_records_sql("SELECT cm.id, CASE $sql_columns ELSE 'NONE' END AS activity  FROM {course_modules} cm, {modules} m WHERE cm.completion = 1 AND cm.visible = 1 AND cm.module = m.id AND cm.course IN ($cids)")) {
+          if ($this->activities = $DB->get_records_sql("SELECT cm.id, CASE $sql_columns ELSE 'NONE' END AS activity  FROM {course_modules} cm, {modules} m WHERE cm.completion > 0 AND cm.visible = 1 AND cm.module = m.id AND cm.course IN ($cids)")) {
             foreach ($this->activities as $activity) {
               $activity->name =  "activity" . $activity->id;
               $columns[] =  $activity->name;

@@ -141,7 +141,7 @@ echo $OUTPUT->header();
 						<?php if ($cat->category_visible or has_capability('moodle/category:viewhiddencategories', context_coursecat::instance($key))): ?>
 						<optgroup label="<?php echo $cat->name; ?>">
 						<?php foreach($category as $course): ?>
-							<?php if ($course->visible or has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))): ?>
+							<?php if ($course->id or has_capability('moodle/course:viewhiddencourses', context_course::instance($course->id))): ?>
 								<option value="<?php echo $course->id; ?>" <?php echo (in_array($course->id, $cids))?'selected="selected"':''; ?>><?php echo format_string($course->fullname); ?></option>
 							<?php endif; ?>
 						<?php endforeach; ?>
