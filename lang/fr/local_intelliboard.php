@@ -213,6 +213,7 @@ $string['intelliboard:students'] = 'IntelliBoard [étudiant]';
 $string['intelliboard_totals'] = 'Totaux IntelliBoard';
 $string['intelliboard_tracking'] = 'Suivi IntelliBoard';
 $string['intelliboard:view'] = 'IntelliBoard [vue]';
+$string['intelliboard:browseallcohorts'] = 'IntelliBoard [Browse All Cohorts]';
 $string['items_per_query'] = 'Éléments par requête';
 $string['last_access_on_course'] = 'Dernier accès sur le parcours: {$ a}';
 $string['last_month'] = '30 derniers jours';
@@ -828,6 +829,7 @@ $string['learner_menu'] = 'Afficher le lien dans le menu Bloc de navigation uniq
 $string['intelliboard_reports'] = 'IntelliBoard Reports';
 $string['n19'] = 'Course Navigation Link for Reports';
 $string['t54'] = 'Enable [Activity Grades] Time Spent column';
+$string['all_cohorts'] = 'All cohorts';
 
 // date formats
 $string['mysqlweek'] = '%Y, week %v';
@@ -839,6 +841,7 @@ $string['mysqlquarter'] = 'quarter';
 $string['mysqldayshortmonthyear'] = '%d %b, %Y';
 $string['mysqltimedate'] = '%h:%i%p, %d %b %Y';
 $string['mysqlmonthyearday'] = '%M %Y, %d';
+$string['mysqldaymonth'] = '%d %b %Y';
 
 $string['postgreweek'] = 'YYYY, "week" WW';
 $string['postgremonthyear'] = 'Month YYYY';
@@ -850,3 +853,4 @@ $string['postgredayshortmonthyear'] = 'DD Mon, YYYY';
 $string['postgretimedate'] = 'HH12:MIAM, DD Mon YYYY';
 $string['postgremonthyearday'] = 'Month YYYY, DD';
 $string['postgrequarteryear'] = 'Q YYYY';
+$string['postgredaymonth'] = 'DD Mon YYYY';

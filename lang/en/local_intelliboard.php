@@ -57,6 +57,7 @@
  $string['intelliboard:competency'] = 'IntelliBoard [competency]';
  $string['intelliboard:attendanceadmin'] = 'Attendance Admin';
  $string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
+ $string['intelliboard:browseallcohorts'] = 'IntelliBoard [Browse All Cohorts]';
  $string['tls12'] = 'TLS v1.2';
  $string['tls12_desc'] = 'Advanced settings: TLS v1.2';
  $string['sso'] = 'SSO link';
@@ -834,6 +835,7 @@ $string['cachedef_bb_collaborate_access_token'] = 'BB collaborate access token';
 $string['learner_menu'] = 'Show "Learner Dashboard" in Navigation Block menu only for enrolled learners';
 $string['learning_plan_filter'] = 'Learning Plan Filter';
 $string['learning_plan_viewer_role'] = '"Learning Plan Viewer" role';
+$string['all_cohorts'] = 'All cohorts';
 
 // date formats
 $string['mysqlweek'] = '%Y, week %v';
@@ -844,6 +846,7 @@ $string['mysqlhour'] = '%h:%i %p';
 $string['mysqlquarter'] = 'quarter';
 $string['mysqldayshortmonthyear'] = '%d %b, %Y';
 $string['mysqltimedate'] = '%h:%i%p, %d %b %Y';
+$string['mysqldaymonth'] = '%d %b %Y';
 $string['mysqlmonthyearday'] = '%M %Y, %d';
 
 $string['postgreweek'] = 'YYYY, "week" WW';
@@ -854,5 +857,6 @@ $string['postgrehour'] = 'HH12:MI AM';
 $string['postgrequarter'] = 'quarter';
 $string['postgredayshortmonthyear'] = 'DD Mon, YYYY';
 $string['postgretimedate'] = 'HH12:MIAM, DD Mon YYYY';
+$string['postgredaymonth'] = 'DD Mon YYYY';
 $string['postgremonthyearday'] = 'Month YYYY, DD';
 $string['postgrequarteryear'] = 'Q YYYY';

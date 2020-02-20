@@ -48,6 +48,7 @@
  $string['intelliboard:view'] = 'IntelliBoard [ver]';
  $string['intelliboard:manage'] = 'IntelliBoard [gerir]';
  $string['intelliboard:competency'] = 'IntelliBoard [competências]';
+$string['intelliboard:browseallcohorts'] = 'IntelliBoard [Browse All Cohorts]';
  $string['tls12'] = 'TLS v1.2';
  $string['tls12_desc'] = 'Configurações Avançadas: TLS v1.2';
  $string['sso'] = 'SSO link';
@@ -839,6 +840,7 @@ $string['learner_menu'] = 'Mostrar link no menu Bloco de Navegação apenas se o
 $string['intelliboard_reports'] = 'IntelliBoard Reports';
 $string['n19'] = 'Course Navigation Link for Reports';
 $string['t54'] = 'Enable [Activity Grades] Time Spent column';
+$string['all_cohorts'] = 'All cohorts';
 
 // date formats
 $string['mysqlweek'] = '%Y, week %v';
@@ -850,6 +852,7 @@ $string['mysqlquarter'] = 'quarter';
 $string['mysqldayshortmonthyear'] = '%d %b, %Y';
 $string['mysqltimedate'] = '%h:%i%p, %d %b %Y';
 $string['mysqlmonthyearday'] = '%M %Y, %d';
+$string['mysqldaymonth'] = '%d %b %Y';
 
 $string['postgreweek'] = 'YYYY, "week" WW';
 $string['postgremonthyear'] = 'Month YYYY';
@@ -861,3 +864,4 @@ $string['postgredayshortmonthyear'] = 'DD Mon, YYYY';
 $string['postgretimedate'] = 'HH12:MIAM, DD Mon YYYY';
 $string['postgremonthyearday'] = 'Month YYYY, DD';
 $string['postgrequarteryear'] = 'Q YYYY';
+$string['postgredaymonth'] = 'DD Mon YYYY';
