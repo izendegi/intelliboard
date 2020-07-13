@@ -793,7 +793,7 @@ $string['adm_dshb_user_site_summary_details'] = 'User Site Summary Detail';
 $string['adm_dshb_course_enrollments_types'] = 'Course Enrollment Types';
 $string['adm_dshb_user_map'] = 'User Map';
 $string['adm_dshb_user_enrol_with_compl_overview'] = 'Course Enrollments with Completion Overview';
-
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['intelliboard:attendanceadmin'] = "Attendance Admin";
 $string['student_grades'] = "Student grades";
 $string['grid_view'] = "Grid view";

@@ -299,6 +299,7 @@ $string['intelliboard_start_tracking'] = 'インテリボードのスタート�
 $string['intelliboard_totals'] = 'インテリボード合計';
 $string['intelliboard_tracking'] = 'インテリボードのトラッキング';
 $string['intelliboard:attendanceadmin'] = '出席管理者';
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['intelliboard:competency'] = 'インテリボード [コンピテンシー]';
 $string['intelliboard:instructors'] = 'インテリボード [教師]';
 $string['intelliboard:manage'] = 'インテリボード [管理]';

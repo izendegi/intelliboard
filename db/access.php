@@ -72,7 +72,7 @@ $capabilities = array(
             'manager' => CAP_ALLOW
         )
     ),
-    'local/intelliboard:pf' => array(
+    'local/intelliboard:pf'=>array(
         'captype' => 'read',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(

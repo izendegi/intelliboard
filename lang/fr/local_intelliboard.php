@@ -567,7 +567,7 @@ $string['user_site_summary_detail'] = 'Résumé de l\'utilisation du site détai
 $string['course_enrollment_types'] = 'Types d\'inscription au cours';
 $string['user_map'] = 'Carte d\'utilisateur';
 $string['course_enrollments_with_completion_overview'] = 'Aperçu des inscriptions aux cours avec achèvement';
-
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['intelliboard:attendanceadmin'] = "Attendance Admin";
 $string['api'] = "Alternative API";
 $string['api_desc'] = "Use Alternative API server (to avoid firewall blocking)";

@@ -821,6 +821,7 @@ $string['course_enrollment_types'] = 'Course Enrollment Types';
 $string['user_map'] = 'User Map';
 $string['course_enrollments_with_completion_overview'] = 'Course Enrollments with Completion Overview';
 $string['intelliboard:attendanceadmin'] = "Attendance Admin";
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['all_modules'] = 'All modules';
 
 /* Attendance */

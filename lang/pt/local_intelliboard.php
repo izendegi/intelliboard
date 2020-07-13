@@ -778,6 +778,7 @@ $string['intelliboard:browseallcohorts'] = 'IntelliBoard [Browse All Cohorts]';
  $string['user_map'] = 'Mapa de usuários';
  $string['course_enrollments_with_completion_overview'] = 'Inscrição em Disciplinas com visão geral de conclusão';
 $string['intelliboard:attendanceadmin'] = "Attendance Admin";
+$string['intelliboard:pf'] = 'IntelliBoard [Manager Dashboard]';
 $string['enablebbbdebug'] = "BigBlueButton debug mode";
 $string['student_grades'] = "Student grades";
 $string['grid_view'] = "Grid view";
