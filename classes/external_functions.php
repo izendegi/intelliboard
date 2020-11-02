@@ -419,7 +419,13 @@ class local_external_functions
             'report231',
             'get_courses_transcripts',
             'get_modules_transcripts',
-            'monitor89'
+            'monitor89',
+            'course_custom_fields',
+            'monitor90',
+            'monitor91',
+            'monitor92',
+            'intellicart_vendors',
+            'report232',
         ];
     }
     public function get_function($params = null)
