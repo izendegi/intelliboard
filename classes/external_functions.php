@@ -425,9 +425,13 @@ class local_external_functions
             'monitor91',
             'monitor92',
             'intellicart_vendors',
-            'report232',
+            'analytic232Table',
+            'analytic232Details',
             'general_lms_data',
+            'get_enrollments_sessions_completions',
             'report233',
+            'report234',
+            'get_feedback_items',
         ];
     }
     public function get_function($params = null)
